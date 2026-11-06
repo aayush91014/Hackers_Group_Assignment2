@@ -1,0 +1,19 @@
+MARS ROVER — PLAN ANALYSIS
+
+Base scenario
+The generated optimal plan has 25 actions. The satisficing greedy best-first run also
+found a 25-action plan for this instance. Both plans were replayed through the state
+transition model. The final state has the rover at Base, all five rocks delivered,
+both bays empty, and the drill acquired.
+
+The two bays allow two rocks to be carried on a return trip. The drill is picked up
+at SiteE before collecting either hard rock (Rock5 at SiteF and Rock3 at SiteC).
+The exact order of the soft-rock collections can differ between equally short plans.
+
+Extended scenario
+No valid plan can satisfy the goal with the stated graph. SiteB is connected only to
+Base in the supplied connectivity list. The storm removes both directed edges between
+Base and SiteB, leaving Rock2 at an unreachable location. SiteD is still reachable
+from SiteC using the explicitly listed one-way edge SiteC -> SiteD. Thus the request
+to explain how the rover reaches SiteB after the closure is inconsistent; a new route
+would need to be added to make the extended task solvable.

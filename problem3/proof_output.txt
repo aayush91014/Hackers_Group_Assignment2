@@ -1,0 +1,13 @@
+?- resolution_trace.
+Initial facts:
+  archivist(mira)
+  inspects(mira,scroll_7)
+  hidden_mark(scroll_7)
+Negated goal: not trusted(mira)
+Resolvent 1: verifies(mira,scroll_7)
+Resolvent 2: trusted(mira)
+Resolvent 3: []  (contradiction)
+Therefore Mira is trusted.
+
+?- trusted(mira).
+true.

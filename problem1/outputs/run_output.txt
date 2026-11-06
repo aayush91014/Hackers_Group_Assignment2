@@ -1,0 +1,38 @@
+PART A: EXPERT BAYESIAN NETWORK
+CPT rows checked: 16  all sum to 1: True
+Expert Q1-Q7: [0.580631, 0.706266, 0.640199, 0.48425, 0.608188, 0.692867, 0.649899]
+Q1 manual summation: 0.5806310375
+Q1 hand-work structure: sum_w sum_d sum_o sum_a sum_l P(w)P(d)P(o|d)P(a|w,o)P(l|o)P(E=High|a,l)
+  = sum over all 3x2x2x2x2 parent-state combinations; total = 0.5806310375
+Explaining away: Q6 = 0.692867  Q7 = 0.649899
+\nPART B: CONDITIONAL INDEPENDENCE
+W independent D: 0.5 0.5
+W independent D | E? compare: 0.608188 0.599751
+W independent L | O=High: P(Hot|O)=0.500000, P(Hot|O,Heavy)=0.500000, P(Hot|O,Light)=0.500000
+W independent L | O=Low: P(Hot|O)=0.500000, P(Hot|O,Heavy)=0.500000, P(Hot|O,Light)=0.500000
+\nPART C/D: DATA AND PARAMETER LEARNING
+n=500; weather frequencies={'Hot': 262, 'Cold': 98, 'Mild': 140}
+Weather,Occupancy counts: {"('Hot', 'High')": 145, "('Hot', 'Low')": 117, "('Cold', 'Low')": 48, "('Mild', 'Low')": 55, "('Mild', 'High')": 85, "('Cold', 'High')": 50}
+MLE Q1-Q7: [0.586626, 0.723159, 0.642704, 0.475853, 0.645958, 0.699622, 0.654357] mean abs diff: 0.011825
+Bayesian Q1-Q7: [0.585197, 0.717138, 0.637228, 0.480743, 0.637561, 0.695754, 0.651787] mean abs diff: 0.008009
+n=5000; weather frequencies={'Hot': 2459, 'Mild': 1548, 'Cold': 993}
+Weather,Occupancy counts: {"('Hot', 'High')": 1322, "('Hot', 'Low')": 1137, "('Mild', 'Low')": 682, "('Cold', 'High')": 514, "('Mild', 'High')": 866, "('Cold', 'Low')": 479}
+MLE Q1-Q7: [0.568351, 0.699041, 0.631027, 0.468924, 0.604888, 0.699239, 0.658976] mean abs diff: 0.008964
+Bayesian Q1-Q7: [0.56822, 0.698474, 0.630444, 0.469378, 0.604147, 0.698862, 0.658711] mean abs diff: 0.009097
+n=20000; weather frequencies={'Hot': 9879, 'Mild': 6082, 'Cold': 4039}
+Weather,Occupancy counts: {"('Hot', 'High')": 5464, "('Mild', 'High')": 3383, "('Cold', 'High')": 2284, "('Mild', 'Low')": 2699, "('Hot', 'Low')": 4415, "('Cold', 'Low')": 1755}
+MLE Q1-Q7: [0.584135, 0.709433, 0.645051, 0.491179, 0.599903, 0.687925, 0.646423] mean abs diff: 0.005022
+Bayesian Q1-Q7: [0.584095, 0.709288, 0.644895, 0.491261, 0.599725, 0.687836, 0.64636] mean abs diff: 0.005033
+\nLargest-error query for n=500 (MLE): Q5
+Bayesian estimation usually stabilizes small-sample CPTs through its Dirichlet prior.
+NOTE: all data are synthetic samples from the expert network; seed = 42
+\nERRORS:\nSpreadsheet runtime warmup failed during python startup
+Traceback (most recent call last):
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py", line 26, in warm_spreadsheet_runtime_on_startup
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 785, in warm_spreadsheet_runtime
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 718, in _warm_feature_flows
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 509, in _warm_drawing_and_image_flows
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/generated/interface/models.py", line 32861, in bring_to_front
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/rpc/remote.py", line 764, in __call__
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/rpc/client.py", line 175, in call
+artifact_tool.rpc.client.RemoteError: Element ordering requires an owning element collection.

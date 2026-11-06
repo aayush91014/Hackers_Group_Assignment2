@@ -1,0 +1,10 @@
+Q1 = P(E=High)
+   = Σw Σd Σo Σa Σl P(w) P(d) P(o|d) P(a|w,o) P(l|o) P(E=High|a,l)
+
+This is a sum over all 3×2×2×2×2 combinations of W, D, O, A and L.
+For each combination, multiply the six corresponding entries from the supplied CPTs,
+then add all 48 products. The script evaluates this full expansion directly and obtains:
+
+Q1 = 0.5806310375
+
+This matches exact-enumeration inference from the expert network.

@@ -1,0 +1,36 @@
+(define (domain mars-rover)
+  (:requirements :strips :typing)
+  (:types rover location sample bay equipment)
+  (:predicates
+    (at-rover ?r - rover ?l - location)
+    (at-sample ?s - sample ?l - location)
+    (at-equipment ?e - equipment ?l - location)
+    (carrying-drill ?r - rover)
+    (drill-picked ?e - equipment)
+    (empty ?b - bay)
+    (holds ?b - bay ?s - sample)
+    (soft ?s - sample)
+    (hard ?s - sample)
+    (connected ?from - location ?to - location)
+    (delivered ?s - sample))
+  (:action move
+    :parameters (?r - rover ?from - location ?to - location)
+    :precondition (and (at-rover ?r ?from) (connected ?from ?to))
+    :effect (and (not (at-rover ?r ?from)) (at-rover ?r ?to)))
+  (:action pick-drill
+    :parameters (?r - rover ?e - equipment ?l - location)
+    :precondition (and (at-rover ?r ?l) (at-equipment ?e ?l))
+    :effect (and (not (at-equipment ?e ?l)) (drill-picked ?e) (carrying-drill ?r)))
+  (:action collect-soft
+    :parameters (?r - rover ?s - sample ?b - bay ?l - location)
+    :precondition (and (at-rover ?r ?l) (at-sample ?s ?l) (soft ?s) (empty ?b))
+    :effect (and (not (at-sample ?s ?l)) (not (empty ?b)) (holds ?b ?s)))
+  (:action collect-hard
+    :parameters (?r - rover ?s - sample ?b - bay ?l - location)
+    :precondition (and (at-rover ?r ?l) (at-sample ?s ?l) (hard ?s)
+                       (empty ?b) (carrying-drill ?r))
+    :effect (and (not (at-sample ?s ?l)) (not (empty ?b)) (holds ?b ?s)))
+  (:action deposit
+    :parameters (?r - rover ?s - sample ?b - bay ?l - location)
+    :precondition (and (at-rover ?r ?l) (holds ?b ?s))
+    :effect (and (not (holds ?b ?s)) (empty ?b) (delivered ?s))))
